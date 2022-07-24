@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = Color( 0xfff2f2f2)
                 ) {
                     MapScreen()
                 }
@@ -75,8 +75,11 @@ fun Navigation() {
         composable("sign_in_screen") {
             LogInScreen(auth = auth,navController)
         }
-        composable("main_screen") {
-            BottomSheet()
+        composable("dashboard") {
+            DashBoard(navController = navController)
+        }
+        composable("doctors") {
+            MapScreen()
         }
 }
 }
@@ -161,7 +164,7 @@ fun LogInScreen(auth: FirebaseAuth,navController: NavController) {
                     onClick = {auth.signInWithEmailAndPassword(email,password)
                         .addOnCompleteListener {
                             if(it.isSuccessful) {
-                                navController.navigate("main_screen")
+                                navController.navigate("dashboard")
                             } else {
                                 Log.d(TAG,"Failed",it.exception)
                             }

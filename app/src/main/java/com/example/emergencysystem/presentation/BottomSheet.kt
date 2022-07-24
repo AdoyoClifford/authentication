@@ -44,6 +44,7 @@ fun BottomSheet() {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
+          //  MapScreen()
             Button(onClick = {
                 scope.launch {
                     if(sheetState.isCollapsed) {
@@ -53,7 +54,7 @@ fun BottomSheet() {
                     }
                 }
             }) {
-                Text("Show available services")
+                //MapScreen()
             }
         }
     }
