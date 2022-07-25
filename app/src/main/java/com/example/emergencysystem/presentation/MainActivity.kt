@@ -32,8 +32,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.emergencysystem.Navigation
 import com.example.emergencysystem.Screens
+import com.example.emergencysystem.contacts.ui.add_edit_contact.AddEditContactScreen
+import com.example.emergencysystem.contacts.ui.contact_list.ContactListScreen
 import com.example.emergencysystem.presentation.MainActivity.Companion.TAG
 import com.example.emergencysystem.ui.theme.EmergencySystemTheme
+import com.example.emergencysystem.util.Routes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -55,7 +58,31 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color( 0xfff2f2f2)
                 ) {
-                    Navigation()
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Routes.TODO_LIST
+                    ) {
+                        composable(Routes.TODO_LIST) {
+                            ContactListScreen(
+                                onNavigate = {
+                                    navController.navigate(it.route)
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.ADD_EDIT_TODO + "?todoId={todoId}",
+                            arguments = listOf(
+                                navArgument(name = "todoId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) {
+                            AddEditContactScreen(onPopBackStack = {
+                                navController.popBackStack()
+                            })
+                        }
                 }
             }
         }
@@ -219,4 +246,5 @@ fun DefaultPreview() {
     EmergencySystemTheme {
         Navigation()
     }
+}
 }

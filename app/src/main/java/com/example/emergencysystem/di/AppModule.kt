@@ -2,6 +2,9 @@ package com.example.emergencysystem.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.emergencysystem.contacts.data.ContactDatabase
+import com.example.emergencysystem.contacts.data.ContactRepository
+import com.example.emergencysystem.contacts.data.ContactRepositoryImpl
 import com.example.emergencysystem.data.DoctorsDataBase
 import com.example.emergencysystem.data.DoctorsRepositoryImpl
 import com.example.emergencysystem.domain.repository.DoctorsSpotRepository
@@ -30,6 +33,22 @@ object AppModule {
     @Provides
     fun provideDoctorsRepository(db: DoctorsDataBase): DoctorsSpotRepository {
         return DoctorsRepositoryImpl(db.dao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideContactDataBase(app: Application): ContactDatabase {
+        return Room.databaseBuilder(
+            app,
+            ContactDatabase::class.java,
+            "contact_database",
+        ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideContactRepository(db: ContactDatabase): ContactRepository {
+        return ContactRepositoryImpl(db.dao)
     }
 
 }
