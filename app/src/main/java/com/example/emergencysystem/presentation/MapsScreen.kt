@@ -11,6 +11,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -21,8 +22,8 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 
 @Composable
-fun MapScreen(navController: NavController,id: Int?,
-    viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun MapScreen(navController: NavController,id: Int?,) {
+    val viewModel: MapsViewModel = hiltViewModel()
     val scaffoldState = rememberScaffoldState()
     val uiSettings =remember{MapUiSettings(zoomControlsEnabled = false)}
 

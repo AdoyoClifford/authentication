@@ -44,7 +44,7 @@ fun HomeScreenContent(navController: NavController) {
         LazyVerticalGrid(cells = GridCells.Adaptive(150.dp)) {
             items(allItems) {
                 ArticleCard(items = it) {id ->
-                    navController.navigate(Screens.MapScreen.route + "/$id")
+                    navController.navigate(it.route + "/$id")
                 }
             }
         }
