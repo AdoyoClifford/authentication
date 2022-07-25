@@ -25,9 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.emergencysystem.Navigation
+import com.example.emergencysystem.Screens
 import com.example.emergencysystem.presentation.MainActivity.Companion.TAG
 import com.example.emergencysystem.ui.theme.EmergencySystemTheme
 import com.google.firebase.auth.FirebaseAuth
@@ -51,38 +55,36 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color( 0xfff2f2f2)
                 ) {
-                    MapScreen()
+                    Navigation()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Navigation() {
-    val auth by lazy {
-        Firebase.auth
-    }
-    val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = "splash_screen"
-    ) {
-        composable("splash_screen") {
-            SplashScreen(navController = navController)
-        }
-        composable("sign_in_screen") {
-            LogInScreen(auth = auth,navController)
-        }
-        composable("dashboard") {
-            DashBoard(navController = navController)
-        }
-        composable("doctors") {
-            MapScreen()
-        }
-}
-}
+//@Composable
+//fun Navigation() {
+//    val auth by lazy {
+//        Firebase.auth
+//    }
+//    val navController = rememberNavController()
+//
+//    NavHost(
+//        navController = navController,
+//        startDestination = "splash_screen"
+//    ) {
+//        composable("splash_screen") {
+//            SplashScreen(navController = navController)
+//        }
+//        composable("sign_in_screen") {
+//            LogInScreen(auth = auth,navController)
+//        }
+//        composable("doctors") {
+//            MapScreen()
+//        }
+//
+//}
+//}
 
 @Composable
 fun LogInScreen(auth: FirebaseAuth,navController: NavController) {
@@ -164,7 +166,7 @@ fun LogInScreen(auth: FirebaseAuth,navController: NavController) {
                     onClick = {auth.signInWithEmailAndPassword(email,password)
                         .addOnCompleteListener {
                             if(it.isSuccessful) {
-                                navController.navigate("dashboard")
+                                navController.navigate(Screens.HomeScreen.route)
                             } else {
                                 Log.d(TAG,"Failed",it.exception)
                             }

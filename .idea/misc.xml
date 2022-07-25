@@ -10,6 +10,9 @@
         <entry key="../../../../layout/compose-model-1658225431912.xml" value="2.0" />
         <entry key="../../../../layout/compose-model-1658348587588.xml" value="2.0" />
         <entry key="../../../../layout/compose-model-1658355412331.xml" value="2.0" />
+        <entry key="app/src/main/res/drawable/emergency.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/hospital.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_profile__1_.xml" value="0.1" />
       </map>
     </option>
   </component>

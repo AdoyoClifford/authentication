@@ -1,19 +1,34 @@
 package com.example.emergencysystem
 
 import androidx.annotation.DrawableRes
-import androidx.navigation.NavController
 
 data class Items(
+    val id: Int = 0,
     @DrawableRes val image: Int,
     val text: String
 )
 
-fun createDataList(): List<Items> {
-    val list = mutableListOf<Items>()
-    list.add(Items(R.drawable.doctor, text = "Doctor"))
-    list.add(Items(R.drawable.ic_ambulance, text = "Ambulance"))
-    list.add(Items(R.drawable.hospital, text = "Find a hospital"))
-    list.add(Items(R.drawable.contact, text = "Next of kin"))
+val hospital = Items(
+    id = 1,
+    image = R.drawable.hospital,
+    text = "Hospital"
+)
 
-    return list
-}
+val doctor = Items(
+    id = 2,
+    image = R.drawable.doctor,
+    text = "Doctor"
+)
+val ambulance = Items(
+    id = 3,
+    image = R.drawable.ic_ambulance,
+    text = "Ambulance"
+)
+val contact = Items(
+    id = 4,
+    image = R.drawable.contact,
+    text = "Next of kin"
+)
+
+val allItems = listOf(hospital, doctor, ambulance, contact)
+

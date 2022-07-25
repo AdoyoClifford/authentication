@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.emergencysystem.R
+import com.example.emergencysystem.Screens
 import kotlinx.coroutines.delay
 
 @Composable
@@ -36,7 +37,7 @@ fun SplashScreen(navController: NavController) {
             )
         )
         delay(500)
-        navController.navigate("sign_in_screen")
+        navController.navigate(Screens.LoginScreen.route)
     }
 
     Box(

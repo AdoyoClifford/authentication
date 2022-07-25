@@ -11,6 +11,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -20,9 +21,12 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 
 @Composable
-fun MapScreen(viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun MapScreen(navController: NavController,id: Int?,
+    viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
     val scaffoldState = rememberScaffoldState()
     val uiSettings =remember{MapUiSettings(zoomControlsEnabled = false)}
+
+   // val maps = id.let{it1 -> DocRepository.findDoc(it1)}
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -44,16 +48,16 @@ fun MapScreen(viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.vi
             onMapLongClick = {
                 viewModel.onEvent(MapEvent.onMapLongClick(it))
             },
-//            cameraPositionState = CameraPositionState(
-//                CameraPosition(
-//                    LatLng(
-//                        22.78373,
-//                        88.3344
-//                    ),12f,0f,0f
-//                )
-//            )
+            cameraPositionState = CameraPositionState(
+                CameraPosition(
+                    LatLng(
+                        22.78373,
+                        88.3344
+                    ),12f,0f,0f
+                )
+            )
         ) {
-            viewModel.state.parkingSpots.forEach {spot ->
+            viewModel.state.doctorsSpots.forEach { spot ->
                 Marker(
                     position = LatLng(spot.lat, spot.lng),
                     title = "Parking spot (${spot.lat}, ${spot.lng})",

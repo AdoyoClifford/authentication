@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.emergencysystem.domain.model.ParkingSpot
-import com.example.emergencysystem.domain.repository.ParkingSpotRepository
+import com.example.emergencysystem.domain.model.Doctors
+import com.example.emergencysystem.domain.repository.DoctorsSpotRepository
 import com.google.android.gms.maps.model.MapStyleOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -15,13 +15,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapsViewModel @Inject constructor(
-    private val repository: ParkingSpotRepository): ViewModel() {
+     val repository: DoctorsSpotRepository): ViewModel() {
     var state by mutableStateOf(MapScreenState())
 
     init {
         viewModelScope.launch {
-            repository.getAllParkingSpots().collectLatest {spots ->
-                state = state.copy(parkingSpots = spots)
+            repository.getAllDoctors().collectLatest { spots ->
+                state = state.copy(doctorsSpots = spots)
             }
         }
     }
@@ -38,12 +38,12 @@ class MapsViewModel @Inject constructor(
             }
             is MapEvent.onMapLongClick -> {
                 viewModelScope.launch {
-                    repository.addParkingSpot(ParkingSpot(event.latLng.latitude, event.latLng.longitude))
+                    repository.addDoctors(Doctors(event.latLng.latitude, event.latLng.longitude))
                 }
             }
             is MapEvent.OnInfoWindowLongClick -> {
                 viewModelScope.launch {
-                    repository.deleteParkingSpot(event.spot)
+                    repository.deleteDoctors(event.spot)
                 }
             }
         }
